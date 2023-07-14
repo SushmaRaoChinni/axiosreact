@@ -1,25 +1,87 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
 
-function App() {
+import axios from 'axios'
+
+import './App.css'
+
+
+
+
+
+const Data = () => {
+
+    const [data,setData]=useState([])
+
+
+
+
+    useEffect(()=>{
+
+        axios.get('https://jsonplaceholder.typicode.com/todos').then(
+
+            responce=>setData(responce.data)
+
+        )
+
+    })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    <div className='container'>
+
+    <table>
+
+    <thead>
+
+    <tr>
+
+    <th>UserId</th>
+
+    <th>Id</th>
+
+    <th>Title</th>
+
+    <th>Completed</th>
+
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+    {
+
+        data.map(eachItem=>(
+
+            <tr>
+
+            <td>{eachItem.userId}</td>
+
+            <td>{eachItem.id}</td>
+
+            <td>{eachItem.title}</td>
+
+            <td>{eachItem.completed ? 'true' : 'false'}</td>
+
+            </tr>
+
+        ))
+
+    }
+
+    </tbody>
+
+    </table>
+
+           
+
     </div>
-  );
+
+  )
+
 }
 
-export default App;
+
+
+
+export default Data
